@@ -1,0 +1,20 @@
+$padding: 1rem;
+
+footer.footer
+{
+    display: block;
+    text-align: center;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+}
+
+footer{
+    font-style: italic;
+    span {
+        font-weight: 600;
+    }
+    small {
+        padding: $padding;
+    }
+}
