@@ -1,11 +1,11 @@
 
 const TicketSelector = props => {
     return (
-        <form>
+        <div>
 
             <label htmlFor="Película"></label>
-            <select className='form-select' id='pelicula'>
-                <option defaultValue disabled>Seleccionar película</option>
+            <select className='form-select' id='pelicula' onChange={(event) => props.onChange(event.target.value)}>
+                <option defaultValue>Seleccionar película</option>
                 {
                     props.movies.map((movie, index)=>{
                         return (<option 
@@ -18,12 +18,16 @@ const TicketSelector = props => {
             <br />
 
             <label htmlFor="date">Fecha</label>
-            <input type="date" className="form-control" name="date" id='fecha' required />
+            <input type="date" 
+                className="form-control" 
+                name="date" id='fecha' 
+                onChange={(event) => props.onDateSelect(event.target.value)}
+                required />
             <br />
 
             {props.children}
 
-        </form>
+        </div>
     )
 }
 
