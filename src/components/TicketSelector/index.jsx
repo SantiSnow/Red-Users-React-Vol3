@@ -1,5 +1,32 @@
+import { useState, useEffect } from 'react';
 
 const TicketSelector = props => {
+
+    const [loading, setLoading] = useState(true);
+    const [movies, setMovies] = useState(null);
+
+    const getMovies = async () => {
+
+        await fetch("http://localhost:3000/movies", {
+            method: 'GET',
+        })
+            .then(response => response.json())
+            .then(
+                result => {
+                    setMovies(result);
+                    setLoading(false);
+                },
+                error => {
+                    console.log(error);
+                    return;
+                }
+            );
+    };
+
+    useEffect(() => {
+        getMovies();
+    }, [loading]);
+
     return (
         <div>
 
@@ -7,20 +34,28 @@ const TicketSelector = props => {
             <select className='form-select' id='pelicula' onChange={(event) => props.onChange(event.target.value)}>
                 <option defaultValue>Seleccionar película</option>
                 {
-                    props.movies.map((movie, index)=>{
-                        return (<option 
-                                    key={index} 
-                                    value={movie.name}>{movie.name}
-                                </option>)
-                    })
+                    (loading)
+                        ?
+                        <>Cargando...</>
+                        :
+                        <>
+                            {
+                                movies.map((movie, index) => {
+                                    return (<option
+                                        key={index}
+                                        value={movie.name}>{movie.name}
+                                    </option>)
+                                })
+                            }
+                        </>
                 }
             </select>
             <br />
 
             <label htmlFor="date">Fecha</label>
-            <input type="date" 
-                className="form-control" 
-                name="date" id='fecha' 
+            <input type="date"
+                className="form-control"
+                name="date" id='fecha'
                 onChange={(event) => props.onDateSelect(event.target.value)}
                 required />
             <br />
