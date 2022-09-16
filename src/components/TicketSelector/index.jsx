@@ -7,7 +7,7 @@ const TicketSelector = props => {
 
     const getMovies = async () => {
 
-        await fetch("http://localhost:3000/movies", {
+        await fetch(process.env.REACT_APP_API_URL+"movies", {
             method: 'GET',
         })
             .then(response => response.json())
